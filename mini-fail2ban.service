@@ -1,0 +1,20 @@
+[Unit]
+Description=Mini Fail2Ban - SSH Login Protection
+Documentation=https://github.com/yourusername/mini-fail2ban
+After=network.target iptables.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/mini-fail2ban/mini_fail2ban_daemon.py start
+ExecStop=/usr/bin/python3 /opt/mini-fail2ban/mini_fail2ban_daemon.py stop
+ExecReload=/bin/kill -HUP $MAINPID
+PIDFile=/var/run/mini-fail2ban.pid
+Restart=on-failure
+RestartSec=10
+
+# 安全设置
+PrivateTmp=yes
+NoNewPrivileges=false
+
+[Install]
+WantedBy=multi-user.target

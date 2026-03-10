@@ -1,0 +1,23 @@
+# Build artifacts
+build/
+*.deb
+*.pyc
+__pycache__/
+
+# Log files
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test files
+test_*.py
+tmp/
