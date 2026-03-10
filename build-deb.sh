@@ -47,7 +47,7 @@ cp config.json "$BUILD_DIR/etc/mini-fail2ban/config.json"
 cp mini-fail2ban.service "$BUILD_DIR/etc/systemd/system/"
 
 # Copy documentation
-cp DAEMON_README.md "$BUILD_DIR/usr/share/doc/mini-fail2ban/README.md"
+cp README.md "$BUILD_DIR/usr/share/doc/mini-fail2ban/README.md"
 
 # Create management script
 echo "[4/7] Creating management script..."
@@ -157,6 +157,12 @@ systemctl daemon-reload
 touch /var/log/mini-fail2ban.log
 chmod 640 /var/log/mini-fail2ban.log
 
+# Enable service to start on boot
+systemctl enable mini-fail2ban
+
+# Start service immediately
+systemctl start mini-fail2ban
+
 echo ""
 echo "================================"
 echo "Mini Fail2Ban installed successfully!"
@@ -165,11 +171,16 @@ echo ""
 echo "Configuration file: /etc/mini-fail2ban/config.json"
 echo "Log file: /var/log/mini-fail2ban.log"
 echo ""
-echo "Quick Start:"
-echo "  1. Edit config:  sudo mini-fail2ban config"
-echo "  2. Start service: sudo mini-fail2ban start"
-echo "  3. Check status:  sudo mini-fail2ban status"
-echo "  4. Enable auto-start: sudo mini-fail2ban enable"
+echo "Service Status:"
+systemctl status mini-fail2ban --no-pager || true
+echo ""
+echo "The service is now running and will start automatically on boot."
+echo ""
+echo "Useful commands:"
+echo "  View logs:       sudo mini-fail2ban logs"
+echo "  Check status:    sudo mini-fail2ban status"
+echo "  Edit config:     sudo mini-fail2ban config"
+echo "  Reload config:   sudo mini-fail2ban reload"
 echo ""
 echo "For more help: mini-fail2ban"
 echo ""
